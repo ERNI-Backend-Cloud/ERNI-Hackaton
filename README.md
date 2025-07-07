@@ -1,202 +1,63 @@
-# Hackathon Submissions Platform Template
-
-Here's a template repo for you to generate a submission platform for your hackathon for free on GitHub.
-
-## Table Of Contents
-
-- [Hackathon Submissions Platform Template](#hackathon-submissions-platform-template)
-  * [Steps To Use This Repo](#steps-to-use-this-repo)
-  * [Exporting Submission Links](#exporting-submission-links)
-- [XYZ Hackathon: Example Hackathon Description](#xyz-hackathon-example-hackathon-description)
-  * [About The Hackathon](#about-the-hackathon)
-  * [Timeline](#timeline)
-  * [Tracks](#tracks)
-  * [Prizes](#prizes)
-  * [Judging Parameters](#judging-parameters)
-  * [How To Submit Your Project?](#how-to-submit-your-project)
-    + [Video Tutorial - How To Submit Your Project?](video-tutorial---how-to-submit-your-project)
-  * [Rules and Code of Conduct](#rules-and-code-of-conduct)
-
-## Steps To Use This Repo 
-
-
-* Click on [**Use this template**](https://github.com/adityaoberai/hackathon-submissions-repo-template/generate) to generate a copy of the repository for your hackathon.
-<a href="https://github.com/adityaoberai/hackathon-submissions-repo-template/generate" target="_blank">
-  <img width="94" alt="image" src="https://user-images.githubusercontent.com/31401437/170708931-be980535-a6fe-4540-a8d1-9515059f5d9c.png">
-</a>
-
-* Visit the [Issue Form for Hackathon Submissions](.github/ISSUE_TEMPLATE/submission.yaml) and edit it to your comfort. [*(Guide)*](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)
-
-> *Note: In order to use the Hackathon Submissions Issue Form, your repository must be public.*
-
-* Add new **Issue Labels** (and remove the existing ones) so that the list looks as follows. [*(Guide)*](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
-<img width="921" alt="image" src="https://user-images.githubusercontent.com/31401437/170709980-6b54a747-789c-41a5-9ed0-f398bbb767b9.png">
-
-* Edit the **Example Hackathon Description** to add/update all the necessary details regarding your hackathon.
-
-* Edit the [Code of Conduct](CODE_OF_CONDUCT.md) to add details of the organizers and the hackathon.
-
-* Review (and update) the [Rules](RULES.md) to add your own set of rules for the hackathon.
-
-* Remove the contents of the Readme before the hackathon description.
-
-## Exporting Submission Links 
-
-If you want export all submission links to a CSV file, follow the following steps:
-
-* Install `Python 3.x` on your system.
-
-* Create a folder to store your submissions CSV.
-
-* Enter the folder, create a file `script.py` and add the following code:
-
-```python
-"""
-Inspired by script the created by prateek032: https://gist.github.com/prateek032/06273e179bb034800c61
-"""
-
-import csv
-import requests
-import json
-
-REPO = ""  # format is username/repo
-ISSUES_FOR_REPO_URL = "https://api.github.com/repos/%s/issues" % REPO
-arg = "?state=all"
-
-# Since the hackathon repos must be public (to allow issue forms), username and password are not necessary.
-
-
-def write_issues(r):
-    "output a list of issues to csv"
-    if not r.status_code == 200:
-        raise Exception(r.status_code)
-    for issue in r.json():
-        Tag = []
-        labels = issue["labels"]
-        for label in labels:
-            Tag.append(label["name"])
-
-        if "issues" in issue["html_url"]:
-            csvout.writerow(
-                [
-                    issue["number"],
-                    issue["title"],
-                    Tag,
-                    issue["state"],
-                    issue["created_at"],
-                    issue["html_url"],
-                ]
-            )
-
-
-r = requests.get(ISSUES_FOR_REPO_URL + arg)
-
-csvfile = "%s-issues.csv" % (REPO.replace("/", "-"))
-csvfileo = open(csvfile, "w")
-csvout = csv.writer(csvfileo)
-csvout.writerow(["Id", "Title", "Tag", "State", "Open Date", "URL"])
-
-write_issues(r)
-
-# more pages? examine the "link" header returned
-if "link" in r.headers:
-    pages = dict(
-        [
-            (rel[6:-1], url[url.index("<") + 1 : -1])
-            for url, rel in [link.split(";") for link in r.headers["link"].split(",")]
-        ]
-    )
-
-    while "last" in pages and "next" in pages:
-        r = requests.get(pages["next"], auth=AUTH)
-        write_issues(r)
-        if pages["next"] == pages["last"]:
-            break
-        pages = dict(
-            [
-                (rel[6:-1], url[url.index("<") + 1 : -1])
-                for url, rel in [
-                    link.split(";") for link in r.headers["link"].split(",")
-                ]
-            ]
-        )
-
-csvfileo.close()
-```
-
-* Open your shell in the same folder and run the command `pip install requests` followed by `python script.py`.
-
-* You should have a CSV file with all the submissions in your folder.
-
----
-
-# XYZ Hackathon: Example Hackathon Description
+# ERNI Bootcamp Hackathon 2025: Code. Solve. Get hired.
 
 ## About The Hackathon
 
-XYZ Hackathon is a 48-hour digital hackathon where young minds possessing a passion for solving real-life problems come together to build innovative solutions. Whether you are a beginner or an expert coder, here is the perfect chance to hone your skills and witness the competitive yet inclusive developer community around you!
+This 3-day onsite hackathon is for fresh graduates and aspiring developers looking to kickstart their tech careers. It’s part of ERNI’s hiring process for our Bootcamp Program.
 
-Learn new technologies, enhance your team management and presentation skills, and get mentored by experts- all in one place!
+You’ll work solo or in a small team to solve a real-world problem using AI. Choose a challenge in one of four areas: healthcare, fintech, transportation, or cybersecurity. You can use any tech stack you’re comfortable with, but your solution must include an AI tool, like a language model, AI API, or automation framework.
+
+Throughout the event, ERNI engineers and leaders will be around to guide, observe, and give feedback. The goal isn’t just to code, it’s to show how you think, collaborate, and build something that works.
+
+At the end, a panel of judges will review your project based on four things: technical complexity, maturity, creativity, and how well you present your idea. Top performers may be invited to join the ERNI Bootcamp and move one step closer to becoming part of the team.
 
 ## Timeline
 
-* **Start Date and Time:** 1st January 2022 at 11:00 AM IST
-* **Start Date and Time:** 3rd January 2022 at 11:00 AM IST
+* **Start Date and Time:** 23rd July 2025 at 09:00 AM EST
+* **End Date and Time:** 25th July 2025 at 11:00 AM EST
 
 ## Tracks
 
-* Track 1
+* Healthcare
 
-> Description of Track 1
+> Use AI to make healthcare easier for Filipinos. You can build something to check symptoms, assist barangay health workers, or organize patient info for clinics. The goal is to make health services easier to access, especially in communities that need it most.
 
-* Track 2
+* Transportation
 
-> Description of Track 2
+> Look for ways to make moving people or goods more efficient. You might work on delivery planning, flight scheduling, or cargo tracking. It could be something that helps drivers save time, businesses lower costs, or travelers avoid delays. Focus on real issues in transport, whether it’s daily operations or large-scale logistics.
 
-* Track 3
+* Financial Technology
 
-> Description of Track 3
+> Reshape finance using AI in this track. Your goal is to create smarter, more accessible, and secure financial services, spanning everything from payments to investments. We're seeking AI-driven solutions for fraud detection or risk assessment, machine learning for personalized finance or investment strategies, and intelligent systems for banking, payments, or financial inclusion.
 
-* Track 4
+* Cybersecurity
 
-> Description of Track 4
+> Protect our digital world with AI. Build advanced, intelligent solutions to combat cyber threats, enhance data privacy, and secure systems. We're looking for AI-powered tools for threat detection or anomaly analysis, machine learning for malware analysis or predictive security, and intelligent automation for incident response or vulnerability management.
 
 ## Prizes
 
-* **1st Prize**
-
->* Cash worth $500
->* XYZ Hackathon Swags
-
-
-* **2nd Prize**
-
->* Cash worth $300
->* XYZ Hackathon Swags
-
-* **3rd Prize**
-
->* Cash worth $100
->* XYZ Hackathon Swags
+* **Top-performing participants will earn a guaranteed spot in the next ERNI Bootcamp**
 
 ## Judging Parameters
 
-1. Project Completeness and Functionality *(25%)*
+1. Technical Complexity *(25%)*
 
-> * Does the project stand as an individual end-to-end product?
-> * Is it a functioning solution that can scale in the real world?
+> * How challenging is the solution from a technical standpoint?
+> * How is the architecture, design patterns, data handling, and overall ambition?
 
-2. Creativity in Design *(25%)*
+2. Technical Maturity *(25%)*
 
-> * Does the project bring innovations in design and create comfortable user experiences?
+> * Is the solution complete, stable, and well-structured?
+> * Includes use of Git, clean code, proper documentation, and adherence to best practices.
 
-3. Innovation in Idea *(25%)*
+3. Creativity and use case *(25%)*
 
-> * Does the project attempt to solve a previously unsolved problem?
+> * How original is the idea, and how well does it solve a real problem?
+> * What is the business value, user impact, and relevance to the chosen track.
 
-4. Social Impact *(25%)*
+4. Presentation and Storytelling *(25%)*
 
-> * Does the project have an impact on people's lives at a social level?
+> * Was the solution clearly explained?
+> * Judges will assess how well the team communicated the problem, solution, and impact during the pitch.
 
 ## How To Submit Your Project?
 
