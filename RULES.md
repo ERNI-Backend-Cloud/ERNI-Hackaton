@@ -1,11 +1,10 @@
 # Hackathon Rules
-<!-- This is a sample set of rules. Feel free to add new rules or remove any existing ones. -->
 
-* Hackers must form a team of 1 - 4 members. Solo hackers are allowed, however, building a team is encouraged.
+* Hackers must form a team of 1 - 3 members. Solo hackers are allowed, however, building a team is encouraged.
 
-* The hackathon will start at **<START DATE AND TIME>** and end at **<END DATE AND TIME>**, you work on your hack during the allotted time only. Older projects will not be allowed. We will require you to build your project on the hackathon weekend.
+* The hackathon will start at **July 23, 2015** and end at **July 25, 2015**, you work on your hack during the allotted time only. Older projects will not be allowed. We will require you to build your project on the hackathon weekend.
 
-* There are *X* themes of the hackathon, you must submit a hack that is in one of these themes.
+* There are *3* themes of the hackathon, you must submit a hack that is in one of these themes.
 
 * Hackers are not allowed to work on multiple teams and/or submit multiple projects. Hackers must be a part of only one team and one project.
   
